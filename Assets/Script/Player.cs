@@ -24,7 +24,7 @@ public class Player : MonoBehaviour, ITakeDamage
                 Attack();
             }
             var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0); // W A S D movement set up
-            rigidbody2D.AddForce(new Vector2(speed * move.x * Time.deltaTime, speed * move.y * Time.deltaTime));
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * move.x * Time.deltaTime, speed * move.y * Time.deltaTime));
             //transform.position += move * speed * Time.deltaTime; // actual physics being applied 
             if (Input.GetKey(KeyCode.D)) // setting character to facing right
             {

@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour {
 
                 transform.eulerAngles = new Vector3(0, 0, z); // rotate enemy based on Z result
 
-                rigidbody2D.AddForce(gameObject.transform.up * speed); // move enemy towards player
+                GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed); // move enemy towards player
             }
             else if (transform.position != startLocation)
             {
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour {
 
                 transform.eulerAngles = new Vector3(0, 0, z); // rotate enemy based on Z result
 
-                rigidbody2D.AddForce(gameObject.transform.up * speed);
+                GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed);
                 var rot = Quaternion.identity;
                 rot.eulerAngles = new Vector3(0, 0, 0);
                 transform.rotation = rot;
