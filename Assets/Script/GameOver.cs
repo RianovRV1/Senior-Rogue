@@ -9,6 +9,11 @@ public class GameOver : MonoBehaviour
 
     void OnMouseDown()
     {
-        Application.LoadLevel(FirstLevel);
+        StartLevel();
+    }
+  public  void StartLevel()
+    {
+        Time.timeScale = 1;  
+      Application.LoadLevel(FirstLevel);
     }
 }

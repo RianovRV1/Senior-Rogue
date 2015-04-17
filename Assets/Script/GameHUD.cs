@@ -8,6 +8,11 @@ using UnityEngine;
     {
         public GUISkin Skin;
         public string text = " ";
+        Player player;
+       public void Start()
+       {
+           player = FindObjectOfType<Player>();
+       }
         public void OnGUI()
         {
             GUI.skin = Skin;
@@ -23,6 +28,13 @@ using UnityEngine;
                     else
                     {
                         GUILayout.Label(string.Format("{0}", text), Skin.GetStyle("Loading"));
+                    }
+                }
+                if (player != null)
+                {
+                    GUILayout.BeginVertical(Skin.GetStyle("GameHUD"));
+                    {
+                        GUILayout.Label(string.Format("Health: {0}/{1}", player.Health, player.MaxHealth), Skin.GetStyle("TimeText"));
                     }
                 }
                 GUILayout.EndVertical();

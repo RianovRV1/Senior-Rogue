@@ -8,7 +8,12 @@ public class Exit : MonoBehaviour
 
     void OnMouseDown()
     {
-        Application.Quit();
+        Quitfunc();
+    }
+   public void Quitfunc()
+    {
+        //Time.timeScale = 1; 
+       Application.Quit();
         Debug.Log("quit");
     }
 }

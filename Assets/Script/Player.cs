@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, ITakeDamage
 	public float speed;
     public bool dead;
     public int MaxHealth = 10;
+    bool paused = false;
     public int Health { get; private set; }
 	Animator anim;
 	void Start() //gets animator componant 
@@ -14,11 +15,19 @@ public class Player : MonoBehaviour, ITakeDamage
         dead = false;
         Health = MaxHealth;
 	}
-
-	void Update()
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            Paused();
+        }
+    }
+	void FixedUpdate()
 	{
         if (!dead)
         {
+
+           
             if (Input.GetKeyDown(KeyCode.Space))// call attack animation on space
             {
                 Attack();
@@ -56,7 +65,21 @@ public class Player : MonoBehaviour, ITakeDamage
             }
         }
 	}
-
+    public void Paused()
+    {
+        if (!paused)
+        {
+            
+            Time.timeScale = 0;
+            paused = true;
+        }
+        else
+        {
+            
+            Time.timeScale = 1;
+            paused = false;
+        }
+    }
 
     public void  Kill()
     {
