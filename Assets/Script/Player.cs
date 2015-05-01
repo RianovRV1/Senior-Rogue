@@ -5,15 +5,18 @@ public class Player : MonoBehaviour, ITakeDamage
 {
 	public float speed;
     public bool dead;
+    public Transform sword;
     public int MaxHealth = 10;
     bool paused = false;
     public int Health { get; private set; }
 	Animator anim;
+    
 	void Start() //gets animator componant 
 	{
 		anim = GetComponent<Animator> ();
         dead = false;
         Health = MaxHealth;
+        
 	}
     void Update()
     {
@@ -21,13 +24,19 @@ public class Player : MonoBehaviour, ITakeDamage
         {
             Paused();
         }
+        if (Input.anyKey == false)
+        {
+
+            anim.SetTrigger("Stopped");
+        }
+
     }
 	void FixedUpdate()
 	{
         if (!dead)
         {
 
-           
+            
             if (Input.GetKeyDown(KeyCode.Space))// call attack animation on space
             {
                 Attack();
@@ -37,28 +46,43 @@ public class Player : MonoBehaviour, ITakeDamage
             //transform.position += move * speed * Time.deltaTime; // actual physics being applied 
             if (Input.GetKey(KeyCode.D)) // setting character to facing right
             {
+                
+                    anim.SetTrigger("WalkingRight");
+                    
+                
+                
                 var rot = Quaternion.identity;
-                rot.eulerAngles = new Vector3(0, 0, -90);
-                transform.rotation = rot;
+                rot.eulerAngles = new Vector3(0, 0, 90);
+                sword.transform.rotation = rot;
             }
             if (Input.GetKey(KeyCode.A))//setting character to facing left
             {
+                
+                    anim.SetTrigger("WalkingLeft");
+               
+                
                 var rot = Quaternion.identity;
-                rot.eulerAngles = new Vector3(0, 0, 90);
-                transform.rotation = rot;
+                rot.eulerAngles = new Vector3(0, 0, -90);
+                sword.transform.rotation = rot;
             }
             if (Input.GetKey(KeyCode.W))//setting character to facing up
             {
+                anim.SetTrigger("WalkingUp");
+                
+
                 var rot = Quaternion.identity;
-                rot.eulerAngles = new Vector3(0, 0, 0);
-                transform.rotation = rot;
+               rot.eulerAngles = new Vector3(0, 0, 180);
+                sword.transform.rotation = rot;
             }
             if (Input.GetKey(KeyCode.S)) //setting character to facing down
             {
+                anim.SetTrigger("WalkingDown");
+                
                 var rot = Quaternion.identity;
-                rot.eulerAngles = new Vector3(0, 0, 180);
-                transform.rotation = rot;
+                rot.eulerAngles = new Vector3(0, 0, 0);
+                sword.transform.rotation = rot;
             }
+           
             if(Input.GetKey(KeyCode.K))
             {
                 RoomManager.Instance.KillPlayer();

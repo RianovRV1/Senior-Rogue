@@ -25,7 +25,7 @@ public class Room : MonoBehaviour
         if (player == null) //if no player, return out of the function
             return;
 
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10); // set camera to current room
+        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60); // set camera to current room
     }
 
 

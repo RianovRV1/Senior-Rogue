@@ -88,22 +88,7 @@ public class Enemy : MonoBehaviour {
       
         
     }
-   /* public void OnTriggerEnter2D(Collider2D other)
-    {
-        var player = other.GetComponent<Player>(); // check to see if collided object is player
-        if (player == null) //if no player, return out of the function
-            return;
-        moving = true;
-    }
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        var player = other.GetComponent<Player>(); // check to see if collided object is player
-        if (player == null) //if no player, return out of the function
-            return;
-        
-        moving = false;
-        
-    }*/
+  
     public void Hit()// function to be implemented to hurt and kill player
     {
         //TODO thing to make sure things

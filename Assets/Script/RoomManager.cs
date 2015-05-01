@@ -8,21 +8,39 @@ public class RoomManager : MonoBehaviour
     public static RoomManager Instance {get; private set;}
     public int roomLimit;
     
-    public static int roomSize = 4;
-    public GameObject Room;// all the room prefabs for the room manager to place 
-    public GameObject LRoom;
-    public GameObject TRoom;
+    public static int roomSize = 20;
+   // public List<GameObject> rooms;
+    public GameObject Room1;// all the room prefabs for the room manager to place 
+    public GameObject LRoom1;
+    public GameObject TRoom1;
+   
+    public GameObject DashRoom1;
+    public GameObject Room2;// all the room prefabs for the room manager to place 
+    public GameObject LRoom2;
+    public GameObject TRoom2;
+    
+    public GameObject DashRoom2;
+    public GameObject Room3;// all the room prefabs for the room manager to place 
+    public GameObject LRoom3;
+    public GameObject TRoom3;
+    
+    public GameObject Room4;// all the room prefabs for the room manager to place 
+    public GameObject LRoom4;
+    public GameObject TRoom4;
     public GameObject FourRoom;
+
     internal static int level = 1;
-    public GameObject DashRoom;
+    
     public Player Player { get; private set; } //player in the scene view, for placement purposes
     public GameObject Enemy; // enemy prefab, for placement purposes
     public GameObject Item; //item  prefab for placement purposes
     public Camera camera;// camera for setting room script's camera
     private List<String> _phrases;
+    public Animator anim;
+    
     public List<Room> _floors;
     private float //offset values for room instanciation 
-        _offsetx = 78f,
+        _offsetx = 130f,
         _offsety = 78f,
         _rotationOffset = 90f;
     private System.Random ran;
@@ -33,6 +51,7 @@ public class RoomManager : MonoBehaviour
     }
     void Start()
     {
+       
         ran = new System.Random();
         _phrases = new List<String>();
         _phrases.Add("Rekt");
@@ -55,7 +74,7 @@ public class RoomManager : MonoBehaviour
    
     void Update()
     {
-        
+       
     }
     public Room MakeRoom(float rotation, float xoffset, float yoffset, GameObject roomType, Player playerEntity, GameObject enemyEntity, GameObject itemEntity) //function that makes a room taking in the offset values and the room prefab types
     {
@@ -63,10 +82,11 @@ public class RoomManager : MonoBehaviour
         var _room = roomType.GetComponent<Room>(); //looks for room script
         _room.camera = camera; // sets rooms camera
         _room.transform.position = new Vector3(xoffset, yoffset); // sets its position based on offset
-        var rot = Quaternion.identity; // value to set a quaternion rotation
-        rot.eulerAngles = new Vector3(0, 0, rotation); // use of Euler angles to set rotation, based on rotation offset
-        _room.transform.rotation = rot; // setting rooms rotation to the rotation offset
-
+        // use of Euler angles to set rotation, based on rotation offset
+        // setting rooms rotation to the rotation offset
+        var rot = Quaternion.identity;
+        rot.eulerAngles = new Vector3(0, 0, rotation);
+        roomType.transform.rotation = rot;
         if (playerEntity != null) // if not null, get player component then set the player to the center of the room
         {
             var player = playerEntity.GetComponent<Player>();
@@ -142,101 +162,101 @@ public class RoomManager : MonoBehaviour
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == false) // up
         {
             if (i == 0)
-                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, Player, null, null);
+                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room1, Player, null, null);
             else
-                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, null, Enemy, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room1, null, Enemy, null);
 
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == false) // down
         {
             if (i == 0)
-                SpawnEntity(Player, null, null, MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, Player, null, null));
+                SpawnEntity(Player, null, null, MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room3, Player, null, null));
             else
-                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, null, Enemy, null);
+                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room3, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == false) // left
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, Player, null, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room2, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, null, Enemy, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room2, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == true) // right
         {
             if (i == 0)
-               MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, Player, null, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room4, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room, null, Enemy, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), Room4, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == true) // up right
         {
             if (i == 0)
-                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom1, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom1, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == false) // up left
         {
             if (i == 0)
-                 MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom2, Player, null, null);
             else
-                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom2, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == false) // down left
         {
             if (i == 0)
-                 MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom3, Player, null, null);
             else
-               MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom3, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == true) // down right
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom4, Player, null, null);
             else
-                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), LRoom4, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == false) // up down
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom1, Player, null, null);
             else
-              MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom1, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == true) // left right
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom2, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), DashRoom2, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == true) // up down right
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom1, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom1, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == true) // up left right
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom2, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 1, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom2, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == false) // up left down
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom3, Player, null, null);
             else
-                 MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 2, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom3, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == false && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == true) // left down right
         {
             if (i == 0)
-                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, Player, null, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom4, Player, null, null);
             else
-                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom, null, Enemy, null);
+                MakeRoom(_rotationOffset * 3, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), TRoom4, null, Enemy, null);
         }
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == true && floor._rooms[i].doors[2] == true && floor._rooms[i].doors[3] == true) // left down up right
         {
