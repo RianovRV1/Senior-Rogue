@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+/// <summary>
+/// this rooms class is an object which that is used by the floor class for floor generation, it contains overrided equals logic, a location class
+/// and a set of bools representing the doors
+/// </summary>
 
 public class Rooms : System.Object, IEquatable<Rooms>
 {

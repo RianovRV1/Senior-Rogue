@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
+/// <summary>
+/// contains an X and Y int coordinate pair. Overrides equals method for comparison operations
+/// </summary>
 
 public class Location : System.Object, IEquatable<Location>
 {

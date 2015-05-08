@@ -2,14 +2,25 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+/// <summary>
+///  This is the main management code, it contains quite a few public members in order to be set up in Unity's inspector.
+///  The Start method calls all the functions needed to set up the level the main function from the Floor Class
+///  The make room method places a room tile at a location
+///  The Spawn entity places player, items, and enemy objects at a designated room
+///  The place each room function takes a generated Floor object and places the floor tiles
+///  the selectRoom has the logic to choose the correct room for placement
+///  The Kill player function does a basic text display then calls the coroutine to kill the player and go to the game over screen
+///  the goto next level function does the same thing as the kill player in theory, it starts the next level co routine which will either start the loading screen or the finish screen
+/// </summary>
+
 public class RoomManager : MonoBehaviour
 {
     
     public static RoomManager Instance {get; private set;}
     public int roomLimit;
-    
-    public static int roomSize = 20;
-   // public List<GameObject> rooms;
+    public GameObject tutorialGraphic;
+    public static int roomSize = 16;
+
     public GameObject Room1;// all the room prefabs for the room manager to place 
     public GameObject LRoom1;
     public GameObject TRoom1;
@@ -45,13 +56,14 @@ public class RoomManager : MonoBehaviour
         _rotationOffset = 90f;
     private System.Random ran;
     // Use this for initialization
-    void Awake()
+    void Awake() //sets rooms self reference for code call
     {
         Instance = this;
     }
-    void Start()
+    void Start() // sets up some taunting strings, makes the room, places the floor tutorial graphic if its the first level.
     {
-       
+        if (level == 1)
+            Instantiate(tutorialGraphic, transform.position, transform.rotation);
         ran = new System.Random();
         _phrases = new List<String>();
         _phrases.Add("Rekt");
@@ -70,12 +82,6 @@ public class RoomManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-   
-    void Update()
-    {
-       
-    }
     public Room MakeRoom(float rotation, float xoffset, float yoffset, GameObject roomType, Player playerEntity, GameObject enemyEntity, GameObject itemEntity) //function that makes a room taking in the offset values and the room prefab types
     {
         
@@ -148,7 +154,7 @@ public class RoomManager : MonoBehaviour
 
 
     }
-    public void placeEachRoom(Floor floor)
+    public void placeEachRoom(Floor floor)// tile placement function
     {
         selectRoom(floor, 0); // seed placment
         for(int i = 1; i < floor._rooms.Count; ++i)
@@ -156,7 +162,7 @@ public class RoomManager : MonoBehaviour
             selectRoom(floor, i);
         }
     }
-    private void selectRoom(Floor floor, int i)
+    private void selectRoom(Floor floor, int i) //tile placement logic to choose the correct tile
     {
         
         if (floor._rooms[i].doors[0] == true && floor._rooms[i].doors[1] == false && floor._rooms[i].doors[2] == false && floor._rooms[i].doors[3] == false) // up
@@ -266,7 +272,7 @@ public class RoomManager : MonoBehaviour
                 MakeRoom(_rotationOffset * 0, (_offsetx * floor._rooms[i].location._x), (_offsety * floor._rooms[i].location._y), FourRoom, null, Enemy, null);
         }
     }
-    public void KillPlayer()
+    public void KillPlayer() // kills the player
     {
         
         int choice = ran.Next() % _phrases.Count;
@@ -274,26 +280,26 @@ public class RoomManager : MonoBehaviour
         StartCoroutine(KillPlayerCo());
     }
 
-    private IEnumerator KillPlayerCo() //coroutine; explain how a coroutine works 
+    private IEnumerator KillPlayerCo() //coroutine; which kills player, has actual logic
     {
         Player.Kill();
-        roomSize = 4;
+        roomSize = 16;
         level = 1;
         yield return new WaitForSeconds(0.75f);
         Application.LoadLevel("GameOver");
 
         
     }
-    public void GotoNextLevel(string levelName)
+    public void GotoNextLevel(string levelName) //Starts up the next level
     {
         StartCoroutine(GotoNextLevelCo(levelName));
     }
 
-    private IEnumerator GotoNextLevelCo(string levelName)
+    private IEnumerator GotoNextLevelCo(string levelName) // logic to starting next level
     {
         
         yield return new WaitForSeconds(3f);
-        if (roomSize >= 5)
+        if (roomSize >= 17)
         {
             Application.LoadLevel("finish");
         }

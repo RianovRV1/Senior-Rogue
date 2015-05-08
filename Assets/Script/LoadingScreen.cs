@@ -4,7 +4,10 @@ using System.Linq;
 using System.Collections;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Loading screen layout and transition function to go to the starting level
+/// has the same Go to next level function as the RoomManager
+/// </summary>
    public class LoadingScreen : MonoBehaviour
     {
        public void Start()

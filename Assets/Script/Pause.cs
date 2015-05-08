@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// logic for calling the pause UI transition and pausing the game
+/// </summary>
 
 public class Pause : MonoBehaviour
 {

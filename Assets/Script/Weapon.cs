@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Weapons collision logic to "kill" the enemy
+/// </summary>
 public class Weapon : MonoBehaviour {
 void OnTriggerEnter2D (Collider2D other) 
 	{

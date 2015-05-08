@@ -18,7 +18,7 @@ public class CameraAnim : MonoBehaviour
     {
         
         //PlayAnimationAsync("Enter Level");
-        if(Time.time > 1)
+        if(Time.timeSinceLevelLoad > 1f)
             anim.enabled = false;
     }
     

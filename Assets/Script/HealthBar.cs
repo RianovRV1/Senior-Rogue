@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
-public class HealthBar : MonoBehaviour  // no
+/// <summary>
+/// Original health bar class, not being used anymore in the game, but will have a future use
+/// </summary>
+public class HealthBar : MonoBehaviour  
 {
     public Player player;
     public Transform ForegroundSprite;

@@ -10,15 +10,22 @@ public class Player : MonoBehaviour, ITakeDamage
     bool paused = false;
     public int Health { get; private set; }
 	Animator anim;
-    
-	void Start() //gets animator componant 
+    /// <summary>
+    /// Has start function the grabs an animator for players animations
+    /// Update function contains listening for pausing
+    /// Fixed Update contains all the player logic for moving and calls the attack function
+    /// the kill method merely sets the players death bool
+    /// the take damage method applys damage to the players current health
+    /// attack function calls an animations causing an attack
+    /// </summary>
+	void Start() //gets animator componant and sets max health
 	{
 		anim = GetComponent<Animator> ();
         dead = false;
         Health = MaxHealth;
         
 	}
-    void Update()
+    void Update() //pause function listens for a key press every frame
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
@@ -31,7 +38,7 @@ public class Player : MonoBehaviour, ITakeDamage
         }
 
     }
-	void FixedUpdate()
+	void FixedUpdate() //every other player function which listens for a call every set time, so if time scale is set to 0, those calls arent listened to
 	{
         if (!dead)
         {
@@ -89,7 +96,7 @@ public class Player : MonoBehaviour, ITakeDamage
             }
         }
 	}
-    public void Paused()
+    public void Paused() //pause function
     {
         if (!paused)
         {
@@ -105,14 +112,14 @@ public class Player : MonoBehaviour, ITakeDamage
         }
     }
 
-    public void  Kill()
+    public void  Kill()// sets players dead bool, plays death animation which isnt implemented
     {
         //anim.SetTrigger("died");
         dead = true;
         
 
     }
-    public void TakeDamage(int damage, GameObject instagator)
+    public void TakeDamage(int damage, GameObject instagator) // Makes player take damage from some other external object, if they reach 0 HP, roommanager is called to kill player
     {
         /*if (PlayerHitSound != null)
             AudioSource.PlayClipAtPoint(PlayerHitSound, transform.position);*/

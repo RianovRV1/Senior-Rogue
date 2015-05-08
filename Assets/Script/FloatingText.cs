@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;  
-
+/// <summary>
+/// An object designed to create text that gets destroyed after a few seconds of displaying.
+/// </summary>
 public class FloatingText : MonoBehaviour // floating text object
 {
     private static readonly GUISkin Skin = Resources.Load<GUISkin>("GameSkin"); //takes in guiskin made and set in unity

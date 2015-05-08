@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Basic game Heads Up Display that displays the current level and the characters HP at the top left
+/// </summary>
    public class GameHUD : MonoBehaviour
     {
         public GUISkin Skin;

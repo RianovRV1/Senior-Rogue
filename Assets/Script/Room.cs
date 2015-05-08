@@ -2,7 +2,11 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+/// <summary>
+/// this is the room monobehavior which contains the logic for moving the camara which is done through the ontrigger enter 2D
+/// </summary>
 public class Room : MonoBehaviour
+
 {
 
     public GameObject Player; //player prefab set in the inspector 

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Contains AI logic for the Enemy to be able to chase and see player, uses constant ray casts to search for the layer the player is on.
+/// if the player leaves the ray cast, the enemy will return to its start location which is set on start
+/// also contains logic to hit the player.
+/// 
+/// </summary>
 public class Enemy : MonoBehaviour {
 
 	public float speed; // speed of enemy, can be changed in the inspector
@@ -87,11 +92,5 @@ public class Enemy : MonoBehaviour {
         }
       
         
-    }
-  
-    public void Hit()// function to be implemented to hurt and kill player
-    {
-        //TODO thing to make sure things
-        //gameObject.SetActive
     }
 }

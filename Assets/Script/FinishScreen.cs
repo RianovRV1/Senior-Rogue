@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Contains simple logic to wait for a few seconds then bring the player back to the start screen
+/// </summary>
 public class FinishScreen : MonoBehaviour
     
 {

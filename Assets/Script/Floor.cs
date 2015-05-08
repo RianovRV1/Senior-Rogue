@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+/// <summary>
+/// class that creates a floor using rooms
+/// First it places a room at the origin, then it grabs all the possible locations, culls it to the valid locations,
+/// randomly selects the location for the next room, places the rooms and sets the doors accordingly.
+/// </summary>
 public class Floor
 {
     public List<Rooms> _rooms;

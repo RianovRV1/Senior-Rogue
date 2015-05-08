@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+/// <summary>
+/// Actual function implementation of placing floating text
+/// </summary>
 public class FromWorldPointTextPositioner : IFloatingTextPositioner  // positioner using floating text positioner interface
 {
     private readonly Camera _camera; 
