@@ -31,23 +31,10 @@ public class Enemy : MonoBehaviour {
     }
     void FixedUpdate()
 	{
-        var raycast = Physics2D.Raycast(transform.position, new Vector2(0, 1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast1 = Physics2D.Raycast(transform.position, new Vector2(0, -1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast2 = Physics2D.Raycast(transform.position, new Vector2(1, 0), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast3 = Physics2D.Raycast(transform.position, new Vector2(-1, 0), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast4 = Physics2D.Raycast(transform.position, new Vector2(1, -1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast5 = Physics2D.Raycast(transform.position, new Vector2(1, 1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast6 = Physics2D.Raycast(transform.position, new Vector2(-1, 1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast7 = Physics2D.Raycast(transform.position, new Vector2(-1, -1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast8 = Physics2D.Raycast(transform.position, new Vector2(-0.5f, -1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast9 = Physics2D.Raycast(transform.position, new Vector2(0.5f, -1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast10 = Physics2D.Raycast(transform.position, new Vector2(-1, 0.5f), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast11 = Physics2D.Raycast(transform.position, new Vector2(-1, -0.5f), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast12 = Physics2D.Raycast(transform.position, new Vector2(0.5f, 1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast13 = Physics2D.Raycast(transform.position, new Vector2(-0.5f, 1), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast14 = Physics2D.Raycast(transform.position, new Vector2(1, 0.5f), 35, 1 << LayerMask.NameToLayer("Player"));
-        var raycast15 = Physics2D.Raycast(transform.position, new Vector2(1, -0.5f), 35, 1 << LayerMask.NameToLayer("Player"));
-        if (raycast || raycast2 || raycast3 || raycast4 || raycast5 || raycast6 || raycast7 || raycast8 || raycast9 || raycast10 || raycast11 || raycast12 || raycast13 || raycast14 || raycast1 || raycast15)
+        
+        var overlapCircle = Physics2D.OverlapCircle(transform.position, 35, 1 << LayerMask.NameToLayer("Player"));
+         Debug.DrawLine(transform.position, new Vector3(transform.position.x + 35, transform.position.y + 35, 0), Color.red);
+        if (overlapCircle)
             moving = true;
         else
             moving = false;
