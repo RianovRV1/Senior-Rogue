@@ -11,7 +11,7 @@ public class Room : MonoBehaviour
 
     public GameObject Player; //player prefab set in the inspector 
     public Camera camera; // camera set in the inspector
-    public List<GameObject> enemies;
+    public List<Enemy> enemies;
     public Enemy enemy;
     // enemy prefab set in the inspector 
     
@@ -20,7 +20,13 @@ public class Room : MonoBehaviour
     public void Start()
     {
         
-        enemies = new List<GameObject>();
+        enemies = new List<Enemy>();
+        grabMyEnemies();
+        foreach (Enemy it in enemies)
+        {
+            it.gameObject.SetActive(false);
+        }
+
     }
     public void OnTriggerEnter2D(Collider2D other) //collision detection for camera movement
     {
@@ -29,8 +35,52 @@ public class Room : MonoBehaviour
         if (player == null) //if no player, return out of the function
             return;
 
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60); // set camera to current room
-    }
+        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60);// set camera to current room
+        foreach (Enemy it in enemies)
+        {
 
+            if (it == null)
+                return;
+            else
+            {
+                Enemy temp = it;
+                temp.gameObject.SetActive(true);
+            }
+        }
+    }
+    
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        var player = other.GetComponent<Player>();
+        if (player == null)
+            return;
+        foreach (Enemy it in enemies)
+        {
+            if (it == null)
+                return;
+            else
+            {
+                it.transform.position = it.startLocation;
+                var rot = Quaternion.identity;
+                rot.eulerAngles = new Vector3(0, 0, 0);
+                it.transform.rotation = rot;
+                it.gameObject.SetActive(false);
+            }
+        }
+    }
+    public void grabMyEnemies()
+    {
+        Enemy[] tempList = UnityEngine.Object.FindObjectsOfType(typeof(Enemy)) as Enemy[];
+        foreach(Enemy it in tempList)
+        {
+            var x = Math.Abs(it.transform.position.x - transform.position.x);
+            var y = Math.Abs(it.transform.position.y - transform.position.y);
+            if((x < 55 && y < 29))
+            {
+                enemies.Add(it);
+            }
+            
+        }
+    }
 
 }

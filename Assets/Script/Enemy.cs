@@ -32,8 +32,8 @@ public class Enemy : MonoBehaviour {
     void FixedUpdate()
 	{
         
-        var overlapCircle = Physics2D.OverlapCircle(transform.position, 35, 1 << LayerMask.NameToLayer("Player"));
-         Debug.DrawLine(transform.position, new Vector3(transform.position.x + 35, transform.position.y + 35, 0), Color.red);
+        var overlapCircle = Physics2D.OverlapCircle(transform.position, 25, 1 << LayerMask.NameToLayer("Player"));
+        
         if (overlapCircle)
             moving = true;
         else

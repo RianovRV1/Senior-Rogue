@@ -39,7 +39,7 @@ public class RoomManager : MonoBehaviour
     public GameObject LRoom4;
     public GameObject TRoom4;
     public GameObject FourRoom;
-
+    
     internal static int level = 1;
     
     public Player Player { get; private set; } //player in the scene view, for placement purposes
@@ -48,8 +48,9 @@ public class RoomManager : MonoBehaviour
     public Camera camera;// camera for setting room script's camera
     private List<String> _phrases;
     public Animator anim;
-    
+   
     public List<Room> _floors;
+    public List<Room> goFloor;
     private float //offset values for room instanciation 
         _offsetx = 130f,
         _offsety = 78f,
@@ -76,12 +77,22 @@ public class RoomManager : MonoBehaviour
         Player = FindObjectOfType<Player>();
         roomLimit = roomSize;
         _floors = new List<Room>();
+        
         placeEachRoom(new Floor(roomLimit));
         SpawnEntity(null, null, Item, _floors[_floors.Count - 1]);
         
+        goFloor = new List<Room>(getRooms());
+       
+
+       
+        
         
     }
+    private Room[] getRooms()
+    {
+        return UnityEngine.Object.FindObjectsOfType(typeof(Room)) as Room[];
 
+    }
     public Room MakeRoom(float rotation, float xoffset, float yoffset, GameObject roomType, Player playerEntity, GameObject enemyEntity, GameObject itemEntity) //function that makes a room taking in the offset values and the room prefab types
     {
         
@@ -115,8 +126,12 @@ public class RoomManager : MonoBehaviour
             var item = itemEntity.GetComponent<Item>();
             Instantiate(itemEntity, _room.transform.position + new Vector3(2, -10), transform.rotation);
         }
+
         
-        var rom = Instantiate(_room, _room.transform.position, _room.transform.rotation); // creating room clone in the scene view
+        
+
+        Instantiate(_room, _room.transform.position, _room.transform.rotation); // creating room clone in the scene view
+      
         _floors.Add(_room);
         
 
