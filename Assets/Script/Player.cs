@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Has start function the grabs an animator for players animations
+/// Update function contains listening for pausing
+/// Fixed Update contains all the player logic for moving and calls the attack function
+/// the kill method merely sets the players death bool
+/// the take damage method applys damage to the players current health
+/// attack function calls an animations causing an attack
+/// </summary>
 public class Player : MonoBehaviour, ITakeDamage 
 {
 	public float speed;
@@ -10,14 +17,7 @@ public class Player : MonoBehaviour, ITakeDamage
     bool paused = false;
     public int Health { get; private set; }
 	Animator anim;
-    /// <summary>
-    /// Has start function the grabs an animator for players animations
-    /// Update function contains listening for pausing
-    /// Fixed Update contains all the player logic for moving and calls the attack function
-    /// the kill method merely sets the players death bool
-    /// the take damage method applys damage to the players current health
-    /// attack function calls an animations causing an attack
-    /// </summary>
+  
 	void Start() //gets animator componant and sets max health
 	{
 		anim = GetComponent<Animator> ();

@@ -11,16 +11,16 @@ public class Enemy : MonoBehaviour {
 	public float speed; // speed of enemy, can be changed in the inspector
 	 // location of the player, can be set in inspector
     public Player player { get; private set; }
-    public bool moving;
-    public Vector3 startLocation;
+    internal bool _moving;
+    internal Vector3 _startLocation;
     private Vector2
         _lastPosition,
         _velocity;
     void Start()
     {
-        startLocation = transform.position;
+        _startLocation = transform.position;
         player = FindObjectOfType<Player>();
-        moving = false;
+        _moving = false;
     }
     
 
@@ -35,10 +35,10 @@ public class Enemy : MonoBehaviour {
         var overlapCircle = Physics2D.OverlapCircle(transform.position, 25, 1 << LayerMask.NameToLayer("Player"));
         
         if (overlapCircle)
-            moving = true;
+            _moving = true;
         else
-            moving = false;
-        if (moving)
+            _moving = false;
+        if (_moving)
             {
                 float z = Mathf.Atan2((player.transform.position.y - transform.position.y),
                                        (player.transform.position.x - transform.position.x))
@@ -48,10 +48,10 @@ public class Enemy : MonoBehaviour {
 
                 GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * speed); // move enemy towards player
             }
-            else if (transform.position != startLocation)
+            else if (transform.position != _startLocation)
             {
-                float z = Mathf.Atan2((startLocation.y - transform.position.y),
-                                   (startLocation.x - transform.position.x))
+                float z = Mathf.Atan2((_startLocation.y - transform.position.y),
+                                   (_startLocation.x - transform.position.x))
                 * Mathf.Rad2Deg - 90; // set a float z based on its transform and the players transform, set to degrees from radians
 
                 transform.eulerAngles = new Vector3(0, 0, z); // rotate enemy based on Z result
@@ -62,8 +62,11 @@ public class Enemy : MonoBehaviour {
                 transform.rotation = rot;
                 
             }
-            if (transform.position.x <= (startLocation.x + 0.01f) && transform.position.x >= (startLocation.x - 0.01f) && transform.position.y >= (startLocation.y - 0.01f) && transform.position.y <= (startLocation.y + 0.01f))
-                transform.position = startLocation;
+        var x = Mathf.Abs(transform.position.x - _startLocation.x);
+        var y = Mathf.Abs(transform.position.y - _startLocation.y);
+        if (x <= 0.01f && y <= 0.01f)
+            transform.position = _startLocation;
+           
 
         
         

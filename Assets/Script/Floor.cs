@@ -57,7 +57,7 @@ public class Floor
         {
             for (int j = 0; j < all.Count; ++j)
             {
-                if (rooms[i].location.Equals(all[j]))
+                if (rooms[i]._location.Equals(all[j]))
                 {
                     all.RemoveAt(j);
                     --j;
@@ -75,23 +75,23 @@ public class Floor
 
         for (int i = 0; i < rooms.Count; ++i)
         {
-            int currentLocX = rooms[i].location._x;
-            int currentLocY = rooms[i].location._y;
+            int currentLocX = rooms[i]._location._x;
+            int currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX, (currentLocY + 1)));
 
-            currentLocY = rooms[i].location._y;
+            currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX, currentLocY - 1));
 
-            currentLocY = rooms[i].location._y;
+            currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX - 1, currentLocY));
-            currentLocX = rooms[i].location._x;
+            currentLocX = rooms[i]._location._x;
 
 
             loc.Add(new Location(currentLocX + 1, currentLocY));
-            currentLocX = rooms[i].location._x;
+            currentLocX = rooms[i]._location._x;
 
 
         }
@@ -109,10 +109,10 @@ public class Floor
         int i = 0;
         for (int j = 0; j < ret.Count; ++j)
         {
-            Location loc1 = new Location(ret[j].location._x - 1, ret[j].location._y);
-            Location loc2 = new Location(ret[j].location._x + 1, ret[j].location._y);
-            Location loc3 = new Location(ret[j].location._x, ret[j].location._y + 1);
-            Location loc4 = new Location(ret[j].location._x, ret[j].location._y - 1);
+            Location loc1 = new Location(ret[j]._location._x - 1, ret[j]._location._y);
+            Location loc2 = new Location(ret[j]._location._x + 1, ret[j]._location._y);
+            Location loc3 = new Location(ret[j]._location._x, ret[j]._location._y + 1);
+            Location loc4 = new Location(ret[j]._location._x, ret[j]._location._y - 1);
 
             if (chosenLoc.Equals(loc1))
             {
@@ -160,10 +160,10 @@ public class Floor
         for (int i = 0; i < rooms.Count; ++i)//nested for loop to set a reference point to check for duplicate rooms and remove said duplicates
         {
 
-            Location locStart = rooms[i].location;
+            Location locStart = rooms[i]._location;
             for (int j = 0; j < rooms.Count; ++j)
             {
-                if (rooms[j].location.Equals(locStart))
+                if (rooms[j]._location.Equals(locStart))
                 {
                     if (rooms[j].Equals(rooms[0]))
                         continue;

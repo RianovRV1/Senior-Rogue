@@ -9,49 +9,49 @@ using System.Text;
 
 public class Rooms : System.Object, IEquatable<Rooms>
 {
-    internal Location location;
-    internal List<bool> doors;//north south east west
+    internal Location _location;
+    internal List<bool> _doors;//north south east west
     public Rooms(int x, int y)
     {
-        location = new Location(x, y);
-        doors = new List<bool>();
+        _location = new Location(x, y);
+        _doors = new List<bool>();
         for (int i = 0; i < 4; ++i)
         {
-            doors.Add(false);
+            _doors.Add(false);
         }
     }
     public Rooms(Location loc, bool N, bool S, bool E, bool W)
     {
-        doors = new List<bool>();
+        _doors = new List<bool>();
         for (int i = 0; i < 4; ++i)
         {
-            doors.Add(false);
+            _doors.Add(false);
         }
-        location = loc;
+        _location = loc;
         if (N)
-            doors[0] = N;
+            _doors[0] = N;
         if (S)
-            doors[1] = S;
+            _doors[1] = S;
         if (E)
-            doors[2] = E;
+            _doors[2] = E;
         if (W)
-            doors[3] = W;
+            _doors[3] = W;
     }
     public void setDoor(int door) // use 0 through 3 in order to set the door to true
     {
-        doors[door] = true;
+        _doors[door] = true;
     }
     public void printRoom()
     {
-        location.printLocation();
+        _location.printLocation();
         System.Console.Write("North is: ");
-        System.Console.Write(doors[0]);
+        System.Console.Write(_doors[0]);
         System.Console.Write("\nSouth is: ");
-        System.Console.Write(doors[1]);
+        System.Console.Write(_doors[1]);
         System.Console.Write("\nEast is: ");
-        System.Console.Write(doors[2]);
+        System.Console.Write(_doors[2]);
         System.Console.Write("\nWest is: ");
-        System.Console.Write(doors[3]);
+        System.Console.Write(_doors[3]);
         System.Console.WriteLine();
     }
 
@@ -62,18 +62,18 @@ public class Rooms : System.Object, IEquatable<Rooms>
         var other = obj as Rooms;
         if ((System.Object)other == null) return false;
 
-        return (other.location == this.location) && (other.doors[0] == this.doors[0]) && (other.doors[1] == this.doors[1]) &&
-            (other.doors[2] == this.doors[2]) && (other.doors[3] == this.doors[3]);
+        return (other._location == this._location) && (other._doors[0] == this._doors[0]) && (other._doors[1] == this._doors[1]) &&
+            (other._doors[2] == this._doors[2]) && (other._doors[3] == this._doors[3]);
     }
     public bool Equals(Rooms other)
     {
         if ((object)other == null) return false;
 
-        return (other.location == this.location) && (other.doors[0] == this.doors[0]) && (other.doors[1] == this.doors[1]) &&
-            (other.doors[2] == this.doors[2]) && (other.doors[3] == this.doors[3]);
+        return (other._location == this._location) && (other._doors[0] == this._doors[0]) && (other._doors[1] == this._doors[1]) &&
+            (other._doors[2] == this._doors[2]) && (other._doors[3] == this._doors[3]);
     }
     public override int GetHashCode()
     {
-        return location.GetHashCode() ^ doors.Count;
+        return _location.GetHashCode() ^ _doors.Count;
     }
 }

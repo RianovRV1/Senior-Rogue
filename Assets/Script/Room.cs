@@ -60,7 +60,7 @@ public class Room : MonoBehaviour
                 return;
             else
             {
-                it.transform.position = it.startLocation;
+                it.transform.position = it._startLocation;
                 var rot = Quaternion.identity;
                 rot.eulerAngles = new Vector3(0, 0, 0);
                 it.transform.rotation = rot;

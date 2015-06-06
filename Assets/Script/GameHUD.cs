@@ -25,7 +25,7 @@ using UnityEngine;
                 {
                     if (text == "level")
                     {
-                        GUILayout.Label(string.Format("{0} {1}", text, RoomManager.level), Skin.GetStyle("TimeText"));
+                        GUILayout.Label(string.Format("{0} {1}", text, RoomManager._level), Skin.GetStyle("TimeText"));
                     }
                     else
                     {
