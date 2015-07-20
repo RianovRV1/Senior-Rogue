@@ -9,24 +9,38 @@ public class Room : MonoBehaviour
 
 {
 
-    public GameObject Player; //player prefab set in the inspector 
+    public Player user; //player prefab set in the inspector 
     public Camera camera; // camera set in the inspector
     public List<Enemy> enemies;
     public Enemy enemy;
+    List<SpriteRenderer> RoomSprites;
+    
     // enemy prefab set in the inspector 
     
    // array to be used for procedural generaion
-    
+    public void Awake()
+    {
+        user = UnityEngine.Object.FindObjectOfType(typeof(Player)) as Player;
+        RoomSprites = new List<SpriteRenderer>(gameObject.GetComponentsInChildren<SpriteRenderer>());
+        enemies = new List<Enemy>();
+        grabMyEnemies();
+    }
     public void Start()
     {
         
-        enemies = new List<Enemy>();
-        grabMyEnemies();
+        
+        if (user.transform.position != transform.position)
+        {
+            foreach (SpriteRenderer it in RoomSprites)
+            {
+                it.enabled = false;
+            }
+        }
         foreach (Enemy it in enemies)
         {
             it.gameObject.SetActive(false);
         }
-
+        
     }
     public void OnTriggerEnter2D(Collider2D other) //collision detection for camera movement
     {
@@ -34,8 +48,12 @@ public class Room : MonoBehaviour
         var player = other.GetComponent<Player>(); // check to see if collided object is player
         if (player == null) //if no player, return out of the function
             return;
-
+      
         camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60);// set camera to current room
+        foreach (SpriteRenderer it in RoomSprites)
+        {
+            it.enabled = true;
+        }
         foreach (Enemy it in enemies)
         {
 
@@ -47,6 +65,8 @@ public class Room : MonoBehaviour
                 temp.gameObject.SetActive(true);
             }
         }
+        
+        
     }
     
     public void OnTriggerExit2D(Collider2D other)

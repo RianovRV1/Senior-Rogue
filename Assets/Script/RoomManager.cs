@@ -81,7 +81,6 @@ public class RoomManager : MonoBehaviour
         placeEachRoom(new Floor(roomLimit));
         SpawnEntity(null, null, Item, _floors[_floors.Count - 1]);
         getRooms();
-        
        
 
        
