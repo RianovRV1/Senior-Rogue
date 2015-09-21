@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// base class, contains methods to be collected and set to inactive or destroyed, play an animation (if any) and play a sound (if any)
+/// base Item class, contains methods to be collected and set to inactive or destroyed, play an animation (if any) and play a sound (if any)
 /// The giveToPlayer method can be overriden to make weapon items or armor items
 /// </summary>
 public class Item : MonoBehaviour // base item class with virtual methods

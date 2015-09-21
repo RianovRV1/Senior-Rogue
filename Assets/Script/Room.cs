@@ -14,7 +14,7 @@ public class Room : MonoBehaviour
     public List<Enemy> enemies;
     public Enemy enemy;
     List<SpriteRenderer> RoomSprites;
-    
+   
     // enemy prefab set in the inspector 
     
    // array to be used for procedural generaion
@@ -42,14 +42,17 @@ public class Room : MonoBehaviour
         }
         
     }
+  
     public void OnTriggerEnter2D(Collider2D other) //collision detection for camera movement
     {
 
         var player = other.GetComponent<Player>(); // check to see if collided object is player
         if (player == null) //if no player, return out of the function
             return;
-      
+        
         camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60);// set camera to current room
+       
+        
         foreach (SpriteRenderer it in RoomSprites)
         {
             it.enabled = true;
