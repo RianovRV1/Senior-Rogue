@@ -9,7 +9,7 @@ using System.Text;
 /// </summary>
 public class Floor
 {
-    public List<Rooms> _rooms;
+    internal List<Rooms> _rooms;
     public Floor(int roomCount)
     {
         Random rand = new Random();
@@ -44,10 +44,10 @@ public class Floor
         List<Rooms> ret = rooms;
         List<Location> possibleLoc = checkValidNeighbors(rooms);
         int roomChoice = rand.Next() % possibleLoc.Count;// randomly choose a room within valid rooms
-        ret = addDoors(rooms, possibleLoc[roomChoice]);
+        ret = addDoors(rooms, possibleLoc[roomChoice]); //sets the return list to the room choice
         return ret;
     }
-    private List<Location> checkValidNeighbors(List<Rooms> rooms) // checks to see if there is already at an existing rooms location
+    private List<Location> checkValidNeighbors(List<Rooms> rooms) // checks to see if there is already at an existing rooms location then strips it as a candidate location if there is a room there
     {
 
         List<Location> loc = new List<Location>();
@@ -69,29 +69,29 @@ public class Floor
 
         return loc;
     }
-    private List<Location> allPossibleRooms(List<Rooms> rooms)
+    private List<Location> allPossibleRooms(List<Rooms> rooms) // this adds all possible locations regardless if a room is already there or not it will get culled in checkValidNeighbors
     {
         List<Location> loc = new List<Location>();
 
         for (int i = 0; i < rooms.Count; ++i)
         {
-            int currentLocX = rooms[i]._location._x;
-            int currentLocY = rooms[i]._location._y;
+            float currentLocX = rooms[i]._location._x;
+            float currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX, (currentLocY + 1)));
 
-            currentLocY = rooms[i]._location._y;
+            //currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX, currentLocY - 1));
 
-            currentLocY = rooms[i]._location._y;
+            //currentLocY = rooms[i]._location._y;
 
             loc.Add(new Location(currentLocX - 1, currentLocY));
-            currentLocX = rooms[i]._location._x;
+            //currentLocX = rooms[i]._location._x;
 
 
             loc.Add(new Location(currentLocX + 1, currentLocY));
-            currentLocX = rooms[i]._location._x;
+            //currentLocX = rooms[i]._location._x;
 
 
         }
@@ -154,30 +154,30 @@ public class Floor
         return ret;
 
     }
-    private int removeRedundant(List<Rooms> rooms)
-    {
-        int result = 0;
-        for (int i = 0; i < rooms.Count; ++i)//nested for loop to set a reference point to check for duplicate rooms and remove said duplicates
-        {
+    //private int removeRedundant(List<Rooms> rooms) I havent been using this so I dont need it
+    //{
+    //    int result = 0;
+    //    for (int i = 0; i < rooms.Count; ++i)//nested for loop to set a reference point to check for duplicate rooms and remove said duplicates
+    //    {
 
-            Location locStart = rooms[i]._location;
-            for (int j = 0; j < rooms.Count; ++j)
-            {
-                if (rooms[j]._location.Equals(locStart))
-                {
-                    if (rooms[j].Equals(rooms[0]))
-                        continue;
-                    else
-                    {
-                        ++result;
-                        rooms.RemoveAt(j);
-                        --j;//sets loop back one to compensate for item removal otherwise it would skip the item that is now at current j.
-                    }
-                }
+    //        Location locStart = rooms[i]._location;
+    //        for (int j = 0; j < rooms.Count; ++j)
+    //        {
+    //            if (rooms[j]._location.Equals(locStart))
+    //            {
+    //                if (rooms[j].Equals(rooms[0]))
+    //                    continue;
+    //                else
+    //                {
+    //                    ++result;
+    //                    rooms.RemoveAt(j);
+    //                    --j;//sets loop back one to compensate for item removal otherwise it would skip the item that is now at current j.
+    //                }
+    //            }
 
-            }
-        }
-        return result;
-    }
+    //        }
+    //    }
+    //    return result;
+    //}
 
 }

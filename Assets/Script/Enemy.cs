@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour {
 	{
         
         var overlapCircle = Physics2D.OverlapCircle(transform.position, 25, 1 << LayerMask.NameToLayer("Player"));
-        
+         
         if (overlapCircle)
             _moving = true;
         else
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour {
         
         
         
-	}
+	}   
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")

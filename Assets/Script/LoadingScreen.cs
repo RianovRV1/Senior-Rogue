@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// Loading screen layout and transition function to go to the starting level
 /// has the same Go to next level function as the RoomManager
@@ -26,14 +27,16 @@ using UnityEngine;
 
                 if (string.IsNullOrEmpty(levelName))
                 {
-                    
-                    Application.LoadLevel("Level 1");
+
+                    SceneManager.LoadSceneAsync("Level 1");
+                    //Application.LoadLevel("Level 1");
+
                 }
 
                 else
                 {
-                    
-                    Application.LoadLevel(levelName);
+                    SceneManager.LoadSceneAsync(levelName);
+                    //Application.LoadLevel(levelName);
                 }
             
         }

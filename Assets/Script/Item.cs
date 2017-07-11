@@ -12,7 +12,10 @@ public class Item : MonoBehaviour // base item class with virtual methods
 {
     
     public GameObject Effect;
-
+    void Start()
+    {
+        
+    }
     public AudioClip SoundFX; // sound clip for later polish
     internal bool _isCollected; // internal declaration so only child can access it through code, invisible to unity inspector 
     public virtual void OnTriggerEnter2D(Collider2D other) 

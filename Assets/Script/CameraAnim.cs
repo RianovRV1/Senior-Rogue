@@ -6,30 +6,32 @@ using UnityEngine;
 using System.Collections;
 public class CameraAnim : MonoBehaviour 
 {
-    Animator anim;
+    internal Animator camAnim; //settiong this to internal lets me have other scripts wait for this to finish
     public AnimationClip clip;
-    void Start()
+    void OnEnable()
     {
-        anim = GetComponent<Animator>();
+        camAnim = GetComponent<Animator>();
         PlayAnimationAsync("Enter Level");
+
         //anim.enabled = false;
     }
+
     void Update()
     {
         
         //PlayAnimationAsync("Enter Level");
         if(Time.timeSinceLevelLoad > 1f)
-            anim.enabled = false;
+            camAnim.enabled = false;
     }
     
 
     IEnumerator PlayAnimationAsync(string animationName)
     {
         
-        anim.Play("Enter Level");
+        camAnim.Play("Enter Level");
         yield return new WaitForSeconds(clip.length); //This does the magic
         //Do the stuff after the animation ends
         Time.timeScale = 1;
-        anim.enabled = false;
+        camAnim.enabled = false;
     }
 }

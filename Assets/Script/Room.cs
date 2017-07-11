@@ -9,8 +9,8 @@ public class Room : MonoBehaviour
 
 {
 
-    public Player user; //player prefab set in the inspector 
-    public Camera camera; // camera set in the inspector
+    public Player user; //player prefab set in awake 
+    private Camera myCamera; // camera set in awake
     public List<Enemy> enemies;
     public Enemy enemy;
     List<SpriteRenderer> RoomSprites;
@@ -22,7 +22,12 @@ public class Room : MonoBehaviour
     {
         user = UnityEngine.Object.FindObjectOfType(typeof(Player)) as Player;
         RoomSprites = new List<SpriteRenderer>(gameObject.GetComponentsInChildren<SpriteRenderer>());
+        myCamera = Camera.main;
         enemies = new List<Enemy>();
+        
+    }
+    public void OnEnable()
+    {
         grabMyEnemies();
     }
     public void Start()
@@ -50,7 +55,7 @@ public class Room : MonoBehaviour
         if (player == null) //if no player, return out of the function
             return;
         
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -60);// set camera to current room
+        myCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -60);// set camera to current room
        
         
         foreach (SpriteRenderer it in RoomSprites)

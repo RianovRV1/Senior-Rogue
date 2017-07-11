@@ -6,17 +6,18 @@ using UnityEngine;
 using System.Collections;
 class MinimapBlinker : MonoBehaviour
 {
-    public Camera followcam;
+    private Camera followCam;
     public SpriteRenderer sprite;
     void Awake()
     {
-        transform.position = followcam.transform.position;
-        
+        followCam = Camera.main;
+        transform.position = followCam.transform.position;
+       
     }
     void Update()
     {
         //sprite.enabled = false;
-        transform.position = followcam.transform.position;
+        transform.position = followCam.transform.position;
         if (Time.fixedTime % .5 < .2)
         {
             sprite.enabled = false;

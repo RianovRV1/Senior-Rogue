@@ -54,7 +54,7 @@ public class Rooms : System.Object, IEquatable<Rooms>
         System.Console.Write(_doors[3]);
         System.Console.WriteLine();
     }
-
+    // operator overrides 
     public override bool Equals(object obj)
     {
         if (obj == null)
@@ -75,5 +75,28 @@ public class Rooms : System.Object, IEquatable<Rooms>
     public override int GetHashCode()
     {
         return _location.GetHashCode() ^ _doors.Count;
+    }
+    public static bool operator ==(Rooms a, Rooms b)
+    {
+        // If both are null, or both are same instance, return true.
+        if (System.Object.ReferenceEquals(a, b))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (((object)a == null) || ((object)b == null))
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return (a._location == b._location) && (a._doors[0] == b._doors[0]) && (a._doors[1] == b._doors[1]) &&
+             (a._doors[2] == b._doors[2]) && (a._doors[3] == b._doors[3]);
+    }
+
+    public static bool operator !=(Rooms a, Rooms b)
+    {
+        return !(a == b);
     }
 }
