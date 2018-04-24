@@ -100,7 +100,7 @@ public class RoomManager : MonoBehaviour
     public Room MakeRoom(float rotation, Location offset, string roomType) //function that makes a room taking in the offset values and the room prefab types
     {
 
-        Debug.Log(String.Format("x: {0}, y: {1}", offset._x, offset._y));
+        //Debug.Log(String.Format("x: {0}, y: {1}", offset._x, offset._y));
         var prefab = Resources.Load("Prefabs/" + roomType) as GameObject;
         var _room = prefab.GetComponent<Room>(); //looks for room script
         //_room.myCamera = myCamera; // sets rooms camera Not needed but here we are
@@ -171,9 +171,10 @@ public class RoomManager : MonoBehaviour
     private void selectRoom(Floor floor, int i) //tile placement logic to choose the correct tile
     {
         Location passedOffset = _offset * floor._rooms[i]._location;
-
+        string tile = "";
         if (floor._rooms[i]._doors[0] == true && floor._rooms[i]._doors[1] == false && floor._rooms[i]._doors[2] == false && floor._rooms[i]._doors[3] == false) // up
         {
+            
             MakeRoom(_rotationOffset * 0, (passedOffset), "Room1");
         }
         if (floor._rooms[i]._doors[0] == false && floor._rooms[i]._doors[1] == true && floor._rooms[i]._doors[2] == false && floor._rooms[i]._doors[3] == false) // down
